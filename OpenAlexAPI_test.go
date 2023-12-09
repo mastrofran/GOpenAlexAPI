@@ -1,4 +1,4 @@
-package OpenAlexAPI
+package GOpenAlexAPI
 
 import (
 	"fmt"
@@ -8,12 +8,16 @@ import (
 func TestWork(t *testing.T) {
 	client := NewClient()
 
-	fmt.Println(client)
+	// fmt.Println(client)
 
-	w := &Work{
-		ID:     "https://doi.org/10.3168/jds.s0022-0302(47)92414-4",
-		Select: []string{"id", "doi"},
+	w := &Query{
+		ID: "https://doi.org/10.3168/jds.s0022-0302(47)92414-4",
 	}
 
-	client.GetWork(w)
+	// json_test := GetResponse("https://api.openalex.org/works/https://doi.org/10.3168/jds.s0022-0302(47)92414-4")
+
+	b := client.GetWork(w)
+
+	fmt.Println(b.CitedByPercentileYear)
+
 }

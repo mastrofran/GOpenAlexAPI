@@ -1,4 +1,4 @@
-package OpenAlexAPI
+package GOpenAlexAPI
 
 import (
 	"encoding/json"
@@ -14,7 +14,7 @@ func NewClient() *Client {
 	return &Client{BaseURL: base_endpoint}
 }
 
-func (c *Client) GetWork(work *Work) {
+func (c *Client) GetWork(work *Query) *Work {
 	endpoint := base_endpoint + "works/" + work.ID
 
 	if work.Select != nil {
@@ -27,15 +27,16 @@ func (c *Client) GetWork(work *Work) {
 		}
 	}
 
-	var r Response
+	var r Work
 
-	fmt.Println(GetResponse(endpoint))
-	if err := json.Unmarshal(GetResponse(endpoint), &r); err != nil {
+	// fmt.Println(GetResponse(endpoint))
+	get_response := GetResponse(endpoint)
+	if err := json.Unmarshal(get_response, &r); err != nil {
 		log.Fatal(err)
 	}
 
-	b, _ := json.Marshal(r)
-	fmt.Println(string(b))
+	// b, _ := json.Marshal(r)
+	return &r
 
 }
 
