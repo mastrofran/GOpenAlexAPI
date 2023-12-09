@@ -10,14 +10,20 @@ func TestWork(t *testing.T) {
 
 	// fmt.Println(client)
 
-	w := &Query{
-		ID: "https://doi.org/10.3168/jds.s0022-0302(47)92414-4",
+	w := WorkQuery{
+		PerPage: 50,
+		Select:  []string{"id", "doi", "title", "referenced_works"},
+		Filter:  "type:article",
+		Search:  "carbon nanotube DNA sorting",
+		Sort:    "relevance_score:desc",
 	}
 
-	// json_test := GetResponse("https://api.openalex.org/works/https://doi.org/10.3168/jds.s0022-0302(47)92414-4")
+	b := client.GetWorks(&w)
 
-	b := client.GetWork(w)
-
-	fmt.Println(b.CitedByPercentileYear)
+	i := 0
+	for _, value := range b.Results {
+		i += 1
+		fmt.Println(i, ". ", value.Title, value.ReferencedWorks)
+	}
 
 }

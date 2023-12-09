@@ -1,8 +1,15 @@
 package GOpenAlexAPI
 
-type Query struct {
-	ID     string
-	Select []string
+type WorkQuery struct {
+	ID      string
+	Select  []string
+	PerPage int
+	PageNum int
+	Sample  int
+	Seed    int
+	Filter  string
+	Search  string
+	Sort    string
 }
 
 type Client struct {
@@ -182,4 +189,14 @@ type Work struct {
 	Type         string `json:"type,omitempty"`
 	TypeCrossRef string `json:"type_crossref,omitempty"`
 	UpdatedDate  string `json:"updated_date,omitempty"`
+}
+
+type Works struct {
+	Meta struct {
+		Count            float64 `json:"count,omitempty"`
+		DBResponseTimeMS int     `json:"db_response_time_ms,omitempty"`
+		Page             int     `json:"page,omitempty"`
+		PerPage          int     `json:"per_page,omitempty"`
+	} `json:"meta,omitempty"`
+	Results []Work `json:"results,omitempty"`
 }
